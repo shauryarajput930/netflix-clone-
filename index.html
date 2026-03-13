@@ -23,5 +23,11 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Fallback for MIME type issues
+      if (typeof import.meta === 'undefined') {
+        console.warn('Module system not properly detected');
+      }
+    </script>
   </body>
 </html>

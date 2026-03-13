@@ -7,9 +7,12 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 8080,
+    port: 8081, // Updated to match deployment port
     hmr: {
       overlay: false,
+    },
+    headers: {
+      'Content-Type': 'text/javascript',
     },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
@@ -17,5 +20,13 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+    chunkSizeWarningLimit: 1000, // Increase warning limit
   },
 }));
